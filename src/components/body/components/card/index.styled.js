@@ -7,13 +7,11 @@ export const CardContainer = styled.div `
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
-
-  iframe{
-    border: none;
-    overflow: hidden;
-    margin: 0 auto;
-  }
+  align-items:centre;
+  justify-content:centre;
+  // width: 90%;
+  // height: 900px;
+ 
 `;
 export const AdHeader = styled.div `
   display: flex;
@@ -33,31 +31,49 @@ export const Logo = styled.div `
     width: 40px;
   }
 `;
-export const Name = styled.div `
-margin-left: 5px;
-cursor: pointer;
-margin-left: 10px;
-h2{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px 0px;
-  width: 150px;
-  text-align: center;
-  box-shadow: 0px 0px 2px 0px grey;
-  padding: 5px;
-  margin: 3px;
-  margin-left: 10px;
-  border-radius: 3px;
-  color: white;
-  background: #0079e3;
-  img{
-    height: 15px;
-    border: solid 2px white;
-    padding: 2px;
-    margin-left: 6px;
-    border-radius: 50%;
-  }
+export const Namef = styled.div `
+
+width: 25%;
+height: 50%;
+background: #1877F2 0% 0% no-repeat padding-box;
+border-radius: 6px;
+opacity: 1;
+display: flex;
+justify-content: center;
+align-items: center;
+gap:5px;
+h6{
+  color:white;
+}
+`;
+export const Namet = styled.div `
+
+width: 25%;
+height: 50%;
+background: #55ACEE 0% 0% no-repeat padding-box;
+border-radius: 6px;
+opacity: 1;
+display: flex;
+justify-content: center;
+align-items: center;
+gap:5px;
+h6{
+  color:white;
+}
+`;
+export const Namey = styled.div `
+
+width:25%;
+height: 50%;
+background: #EA412C 0% 0% no-repeat padding-box;
+display: flex;
+justify-content: center;
+align-items: center;
+gap:5px;
+border-radius: 6px;
+opacity: 1;
+h6{
+  color:white;
 }
 `;
 export const Options = styled.div `
@@ -65,6 +81,14 @@ export const Options = styled.div `
   position: absolute;
   right: 0;
   justify-content: center;
+  align-items: center;
+  gap:5px;
+`;
+export const Options2 = styled.div `
+height:70px;
+display: flex;
+gap:20%;
+justify-content: center;
   align-items: center;
 `;
 export const AdlibraryButton = styled.button `
@@ -110,7 +134,7 @@ export const FavoriteButton = styled.button `
   width: auto;
   margin-right: 5px;
   img{
-    height: 35px;
+    
   }
   &:hover{
     
@@ -283,8 +307,8 @@ export const DeleteButton = styled.button `
     background: none;
 
     img{
-        height: 25px;
-        margin: 0px 15px;
+        
+        padding-right:10px;
         cursor: pointer;
     }
 `;
@@ -308,9 +332,19 @@ export const RightArrow = styled.div `
 `;
 
 export const EmbedContainer = styled.div `
-  display: flex;
+  
   background: #e7e7e7;
-  height: 100%;
-  align-items:center;
-  justify-content:center;
+  height:95%;
+  width:100%;
+  
+
+
+
+  iframe{
+    transform: scale(0.85);
+    position:relative;
+    bottom:10%;
+   
+    
+  }
 `;

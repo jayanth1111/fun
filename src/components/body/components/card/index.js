@@ -4,8 +4,11 @@ import {
     CardContainer,
     AdHeader,
     Logo,
-    Name,
+    Namef,
+    Namet,
+    Namey,
     Options,
+    Options2,
     AdlibraryButton,
     FavoriteButton,
     CardBody,
@@ -35,7 +38,7 @@ const AdCard = (props) => {
         return new Date(date).toDateString()
     }
     const OnFavClick = () => {
-        props.ModifyFav(ad.adId);
+        props.ModifyFav(ad);
     }
 
     const OnDelete = () => {
@@ -61,47 +64,31 @@ const AdCard = (props) => {
     
         <CardContainer>
         
-        <AdHeader>
-            <Logo>
-                 {/* <img src={
-                    imgBase64Obj[ad.logo] ? imgBase64Obj[ad.logo] : ad.logo
-                }></img> */} </Logo>
-            <Name onClick={
-                () => {
-                    window.open(`${ad.redirectUrl}`, '_blank');
-                }
-            }>
-                {/* <img src={
         
-                }></img> */}
-                <h2> 
-                    Post{<img src="images/facebook.png"></img>
-                }</h2>
-                </Name>
-            <Options>
-                <FoundOn>
-                    Date: <span> {
-                            formattedDate(ad.updatedAt)
-                        } </span>
-                </FoundOn>
-                <DeleteButton onClick={
+        <EmbedContainer>
+        <AdHeader>
+            
+                <Options>
+                <FavoriteButton onClick={
+                    () => {
+                        OnFavClick()
+                    }
+                }>
+                    {
+                    ad.favorite ? <img src="images/like.png"></img> : <img src="images/heart.png"></img>
+                } </FavoriteButton> 
+                 <DeleteButton onClick={
                     () => {
                         OnDelete()
                     }
                 }>
                     <img src="images/delete.png"></img>
                 </DeleteButton>
-                {/* {<FavoriteButton onClick={
-                    () => {
-                        OnFavClick()
-                    }
-                }>
-                    {
-                    ad.favorites ? <img src="images/favoriteon.png"></img> : <img src="images/favoriteoff.png"></img>
-                } </FavoriteButton>}  */}
+                
             </Options>
-        </AdHeader>
-        <EmbedContainer> {
+            </AdHeader>
+            <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
+            {
             ad.videoId ? <iframe src={
                     `https://www.facebook.com/plugins/video.php?height=476&href=https://www.facebook.com/${
                         ad.redirectUrl && ad.redirectUrl.split("/")[3]
@@ -109,17 +96,14 @@ const AdCard = (props) => {
                         ad.videoId
                     }/&show_text=true&width=476&t=0`
                 }
-                width="500"
-                height="800"
-                style={
-                    {
-                        border: "none",
-                        overflow: "hidden"
-                    }
-                }
+                
+               
+                width="100%"
+                height="700px"
                 scrolling="no"
                 frameborder="0"
                 allowfullscreen="true"
+              
                 allow="autoplay; clipboard-write; encrypted-media; picture-in-picture;"
                 allowFullScreen="true"></iframe> : <iframe src={
                     `https://www.facebook.com/plugins/post.php?href=https://www.facebook.com/${
@@ -128,24 +112,41 @@ const AdCard = (props) => {
                         ad.adId
                     }&show_text=true&width=500`
                 }
-                width={
-                    ad.image_width ? ad.image_width : "500"
-                }
-                height={
-                    ad.image_height ? ad.image_height : "800"
-                }
-                style={
-                    {
-                        border: "none",
-                        overflow: "hidden"
-                    }
-                }
+               
+               
+                width="100%"
+                height="700px"
                 scrolling="no"
                 frameborder="0"
                 allowfullscreen="true"
+               
                 allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
                 allowFullScreen="true"></iframe>
-        } </EmbedContainer>
+        } 
+
+            </div>
+
+         
+        </EmbedContainer>
+        <Options2>
+        <FoundOn>
+                    Date: <span> {
+                            formattedDate(ad.updatedAt)
+                        } </span>
+                </FoundOn>
+        <Namef onClick={
+                () => {
+                    window.open(`${ad.redirectUrl}`, '_blank');
+                }
+            }>
+                {/* <img src={
+        
+                }></img> */}
+               <img src="images/facebook.png"></img>
+               <h6>show post</h6>
+                </Namef>
+                
+        </Options2>
 
     
 
@@ -156,8 +157,49 @@ const AdCard = (props) => {
 
         </>:props.platform==="twitter"?<>
         <CardContainer>
+            
+               
+            <EmbedContainer>
             <AdHeader>
-            <Name onClick={
+            
+                <Options>
+                <FavoriteButton onClick={
+                    () => {
+                        OnFavClick()
+                    }
+                }>
+                    {
+                    ad.favorite ? <img src="images/like.png"></img> : <img src="images/heart.png"></img>
+                } </FavoriteButton> 
+                 <DeleteButton onClick={
+                    () => {
+                        OnDelete()
+                    }
+                }>
+                    <img src="images/delete.png"></img>
+                </DeleteButton>
+                
+            </Options>
+            </AdHeader>
+              <iframe src={`https://twitframe.com/show?https://www.twitter.com/${ad.screenName}/status/${ad.adId}`} 
+              height="700px"
+              width="100%"
+            scrolling="no"
+            frameborder="0"
+            allowfullscreen="true"
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
+            allowFullScreen="true"
+            
+              ></iframe>
+            
+            </EmbedContainer>
+            <Options2>
+            <FoundOn>
+                    Date: <span> {
+                            formattedDate(ad.updatedAt)
+                        } </span>
+                </FoundOn>
+            <Namet onClick={
                 () => {
                     
                     window.open(`${ad.redirectUrl}`, '_blank');
@@ -166,45 +208,52 @@ const AdCard = (props) => {
                 {/* <img src={
         
                 }></img> */}
-                <h2> 
-                    Tweet{<img src="images/twitter.png"></img>
-                }</h2>
-                </Name>
+                <img src="images/twitter.png"></img>
+                <h6>show tweet</h6>
+                </Namet>
+                
+            </Options2>
+        </CardContainer>
+        </>:
+        <>
+        <CardContainer>
+        
+            <EmbedContainer>
+            <AdHeader>
+            
                 <Options>
-                <FoundOn>
-                    Date: <span> {
-                            formattedDate(ad.updatedAt)
-                        } </span>
-                </FoundOn>
-                { <DeleteButton onClick={
-                    () => {
-                        OnDelete()
-                    }
-                }>
-                    <img src="images/delete.png"></img>
-                </DeleteButton> }
-                {/* { <FavoriteButton onClick={
+                <FavoriteButton onClick={
                     () => {
                         OnFavClick()
                     }
                 }>
                     {
-                    ad.favorites ? <img src="images/favoriteon.png"></img> : <img src="images/favoriteoff.png"></img>
-                } </FavoriteButton> } */}
+                    ad.favorite ? <img src="images/like.png"></img> : <img src="images/heart.png"></img>
+                } </FavoriteButton> 
+                 <DeleteButton onClick={
+                    () => {
+                        OnDelete()
+                    }
+                }>
+                    <img src="images/delete.png"></img>
+                </DeleteButton>
+                
             </Options>
             </AdHeader>
-            <EmbedContainer>
-              <iframe src={`https://twitframe.com/show?https://www.twitter.com/${ad.screenName}/status/${ad.adId}`} 
-              width={
-                ad.image_width ? ad.image_width : "500"
-            }
-            height={
-                ad.image_height ? ad.image_height : "800"
-            }
+            <iframe src={ad.adUrl} 
+            //   width={
+            //     ad.image_width ? ad.image_width : "500"
+            // }
+            width="100%"
+            // height={
+            //     ad.image_height ? ad.image_height : "480"
+            // }
+            height={"300px"}
             style={
                 {
                     border: "none",
-                    overflow: "hidden"
+                    overflow: "hidden",
+                    
                 }
             }
             scrolling="no"
@@ -215,12 +264,13 @@ const AdCard = (props) => {
               ></iframe>
             
             </EmbedContainer>
-        </CardContainer>
-        </>:
-        <>
-        <CardContainer>
-        <AdHeader>
-            <Name onClick={
+            <Options2>
+                 <FoundOn>
+                    Date: <span> {
+                            formattedDate(ad.updatedAt)
+                        } </span>
+                </FoundOn>
+            <Namey onClick={
                 () => {
                     
                     window.open(`https://${ad.landingDomain}`, '_blank');
@@ -229,56 +279,13 @@ const AdCard = (props) => {
                 {/* <img src={
         
                 }></img> */}
-                <h2> 
-                    YT{<img src="images/youtube.png"></img>
-                }</h2>
-                </Name>
-                <Options>
-                <FoundOn>
-                    Date: <span> {
-                            formattedDate(ad.updatedAt)
-                        } </span>
-                </FoundOn>
-                 <DeleteButton onClick={
-                    () => {
-                        OnDelete()
-                    }
-                }>
-                    <img src="images/delete.png"></img>
-                </DeleteButton>
-                {/* <FavoriteButton onClick={
-                    () => {
-                        OnFavClick()
-                    }
-                }>
-                    {
-                    ad.favorites ? <img src="images/favoriteon.png"></img> : <img src="images/favoriteoff.png"></img>
-                } </FavoriteButton>  */}
-            </Options>
-            </AdHeader>
-            <EmbedContainer>
-            
-            <iframe src={ad.adUrl} 
-              width={
-                ad.image_width ? ad.image_width : "600"
-            }
-            height={
-                ad.image_height ? ad.image_height : "480"
-            }
-            style={
-                {
-                    border: "none",
-                    overflow: "hidden"
-                }
-            }
-            scrolling="no"
-            frameborder="0"
-            allowfullscreen="true"
-            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
-            allowFullScreen="true"
-              ></iframe>
-            
-            </EmbedContainer>
+               <img src="images/youtube.png"></img>
+                <h6>show video</h6>
+                </Namey>
+               
+               
+
+            </Options2>
             
         </CardContainer>
         </>

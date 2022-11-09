@@ -4,11 +4,11 @@ import { statics } from '../config/static'
 
 import BodyContext from '../context/BodyContext'
 
-const { FACEBOOK_FAV_ENDPOINT,TWITTER_FAV_ENDPOINT,YOUTUBE_FAV_ENDPOINT,TWITTER_DELETE_ENDPOINT,YOUTUBE_DELETE_ENDPOINT,FACEBOOK_DELETE_ENDPOINT,FACEBOOK_GET_ENDPOINT, YOUTUBE_GET_ENDPOINT, TWITTER_GET_ENDPOINT } = statics
+const { FACEBOOK_FAV_ENDPOINT,TWITTER_FAV_ENDPOINT,YOUTUBE_FAV_ENDPOINT,FACEBOOK_EXPORT_ENDPOINT,TWITTER_EXPORT_ENDPOINT,YOUTUBE_EXPORT_ENDPOINT,ADD_TO_FAV,REMOVE_FROM_FAV,TWITTER_DELETE_ENDPOINT,YOUTUBE_DELETE_ENDPOINT,FACEBOOK_DELETE_ENDPOINT,FACEBOOK_GET_ENDPOINT, YOUTUBE_GET_ENDPOINT, TWITTER_GET_ENDPOINT } = statics
 
 const useAds = () => {
 
-    const { setAds, setTotalAdCount } = useContext(BodyContext)
+    const { setFavads,setExports,setAds, setTotalAdCount } = useContext(BodyContext)
 
     const getFacebookAds = async (userId, page) => {
         try {
@@ -102,50 +102,138 @@ const useAds = () => {
 
         }
     }
-    const favFacebookAds=async(userId,adId)=>{
+    const addToFavorites=async(userId,adId,platform)=>{
         try {
-            let response = await fetch(FACEBOOK_FAV_ENDPOINT, {
+            let response = await fetch(ADD_TO_FAV, {
                 method: "POST",
                 headers: {
                     'Content-Type': "application/json"
                 },
-                body: JSON.stringify({ userId, adId })
+                body: JSON.stringify({ userId, adId,platform})
             })
         } catch(err) {
 
         }
     }
-    const favTwitterAds=async(userId,adId)=>{
+    const removeFromFavorites=async(userId,adId,platform)=>{
         try {
-            let response = await fetch(TWITTER_FAV_ENDPOINT, {
+            let response = await fetch(REMOVE_FROM_FAV, {
                 method: "POST",
                 headers: {
                     'Content-Type': "application/json"
                 },
-                body: JSON.stringify({ userId, adId })
+                body: JSON.stringify({ userId, adId,platform})
             })
         } catch(err) {
 
         }
     }
-    const favYoutubeAds=async(userId,adId)=>{
+    const exportTwitterAds = async (userId) => {
+        try {
+            let response = await fetch(TWITTER_EXPORT_ENDPOINT, {
+                method: "POST",
+                headers: {
+                    'Content-Type': "application/json"
+                },
+                body: JSON.stringify({ userId })
+            })
+
+            let result = await response.json()
+            setExports(result.twitterAds)
+            
+        } catch(err) {
+
+        }
+    }
+    const exportFacebookAds = async (userId) => {
+        try {
+            let response = await fetch(FACEBOOK_EXPORT_ENDPOINT, {
+                method: "POST",
+                headers: {
+                    'Content-Type': "application/json"
+                },
+                body: JSON.stringify({ userId })
+            })
+
+            let result = await response.json()
+            setExports(result.facebookAds)
+            
+        } catch(err) {
+
+        }
+    }
+    const exportYoutubeAds = async (userId) => {
+        try {
+            let response = await fetch(YOUTUBE_EXPORT_ENDPOINT, {
+                method: "POST",
+                headers: {
+                    'Content-Type': "application/json"
+                },
+                body: JSON.stringify({ userId })
+            })
+
+            let result = await response.json()
+            setExports(result.youtubeAds)
+            
+        } catch(err) {
+
+        }
+    }
+    const favYoutubeAds = async (userId) => {
         try {
             let response = await fetch(YOUTUBE_FAV_ENDPOINT, {
                 method: "POST",
                 headers: {
                     'Content-Type': "application/json"
                 },
-                body: JSON.stringify({ userId, adId })
+                body: JSON.stringify({ userId })
             })
+
+            let result = await response.json()
+            setFavads(result.youtubeAds)
+            
+        } catch(err) {
+
+        }
+    }
+    const favFacebookAds = async (userId) => {
+        try {
+            let response = await fetch(FACEBOOK_FAV_ENDPOINT, {
+                method: "POST",
+                headers: {
+                    'Content-Type': "application/json"
+                },
+                body: JSON.stringify({ userId })
+            })
+
+            let result = await response.json()
+            setFavads(result.facebookAds)
+            
+        } catch(err) {
+
+        }
+    }
+    const favTwitterAds = async (userId) => {
+        try {
+            let response = await fetch(TWITTER_FAV_ENDPOINT, {
+                method: "POST",
+                headers: {
+                    'Content-Type': "application/json"
+                },
+                body: JSON.stringify({ userId })
+            })
+
+            let result = await response.json()
+            setFavads(result.twitterAds)
+            
         } catch(err) {
 
         }
     }
     
-    
 
 
-    return { getFacebookAds, getYoutubeAds, getTwitterAds,delFacebookAds,delTwitterAds,delYoutubeAds,favFacebookAds,favTwitterAds,favYoutubeAds}
+    return {favFacebookAds,favTwitterAds,favYoutubeAds,exportFacebookAds,exportTwitterAds,exportYoutubeAds,addToFavorites , removeFromFavorites,getFacebookAds, getYoutubeAds, getTwitterAds,delFacebookAds,delTwitterAds,delYoutubeAds}
 }
 
 export default useAds

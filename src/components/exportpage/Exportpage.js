@@ -1,9 +1,11 @@
 import React, { useState,useContext } from 'react'
 import ReactToExcel from 'react-html-table-to-excel'
 import BodyContext from '../../context/BodyContext'
+import useAds from '../../hooks/useAds'
 import './style.css'
 export default function Exportpage() {
-    const { platform, ads, setAds, totalAdCount, setTotalAdCount,exportpage,setExportpage} = useContext(BodyContext)
+    const { platform, exports, setAds, totalAdCount, setTotalAdCount,exportpage,setExportpage} = useContext(BodyContext)
+    const { getFacebookAds, getTwitterAds, getYoutubeAds,delFacebookAds,delTwitterAds,delYoutubeAds,addToFavorites,removeFromFavorites } = useAds()
     //const [count,setCount]=useState(0)
     var count=0;
   return (
@@ -14,18 +16,24 @@ export default function Exportpage() {
           <th>#</th>
           <th>Title</th>
           <th>Description</th>
+          <th>Favorite</th>
           <th>redirectUrl</th>
+          
         </tr>
 
        
-        {ads.map((val, key) => {
+        {
+        
+        exports.map((val, key) => {
             count=count+1;
           return (
             <tr key={key}>
               <td>{count}</td> 
               <td>{val.title}</td>
               <td>{val.description}</td>
+              <td>{val.favorite}</td>
               <td>{val.redirectUrl}</td>
+              
             </tr>
           )
           

@@ -14,26 +14,21 @@ const options = [
 ];
 
 const App = () => {
-    const [platform, setPlatform] = useState(options[0])
+    const [platform, setPlatform] = useState("facebook")
+    const [fav,setFav]=useState(false)
+    const [favads,setFavads]=useState([])
     const [ads, setAds] = useState([])
+    const [exports, setExports] = useState([])
     const [totalAdCount, setTotalAdCount] = useState(0)
     const [exportpage,setExportpage]=useState(false)
-    const [view,setView]=useState("Excel")
-    const excelfun=()=>{
-        setExportpage(!exportpage);
-        if(view==="Excel"){
-            setView("Normal")
-        }
-        else{
-            setView("Excel")
-        }
-    }
+    const [view,setView]=useState("Export all ads")
+    
 
 
     return <Fragment>
         <GlobalStyle />
 
-        <BodyContext.Provider value={{ platform, setPlatform, options, ads, setAds, totalAdCount, setTotalAdCount,exportpage,setExportpage,view,setView,excelfun}}>
+        <BodyContext.Provider value={{ exports,setExports,favads,setFavads,fav,setFav,platform, setPlatform, options, ads, setAds, totalAdCount, setTotalAdCount,exportpage,setExportpage,view,setView}}>
             <HeaderComponent />
 
             
